@@ -39,6 +39,12 @@ useradd \
   --home-dir "${HOME}" \
   "${USER_NAME}"
 
+if [[ "${1}" == "webstorm-install-rust" ]]; then
+  gosu "${USER_ID}:${GROUP_ID}" curl https://sh.rustup.rs -sSf \
+  | exec gosu "${USER_ID}:${GROUP_ID}" sh -s -- -y
+  exit 0
+fi
+
 XDG_RUNTIME_DIR="/run/user/${USER_ID}"
 mkdir -p ${XDG_RUNTIME_DIR} 
 chown -R ${USER_ID}:${GROUP_ID} ${XDG_RUNTIME_DIR}

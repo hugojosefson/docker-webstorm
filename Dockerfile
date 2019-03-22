@@ -23,6 +23,7 @@ RUN apt-get update \
     firefox             $(: '~required by webstorm' ) \
     git                 $(: '~required by webstorm' ) \
     libnss3             $(: 'required by jetbrains-toolkit, for logging in' ) \
+    gcc                 $(: 'required for rust' ) \
     vim                 $(: 'useful') \
   && apt-get clean
 

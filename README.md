@@ -34,6 +34,30 @@ docker run --rm -it \
   hugojosefson/webstorm webstorm $(pwd)
 ```
 
+### Install Rust
+
+To install Rust inside `WEBSTORM_HOME`:
+
+```bash
+docker run --rm -it \
+  --env USER_ID="$(id -u)" \
+  --env USER_NAME="$(id -un)" \
+  --env GROUP_ID="$(id -g)" \
+  --env GROUP_NAME="$(id -gn)" \
+  --env HOME="${HOME}" \
+  --volume "${WEBSTORM_HOME}":"${HOME}" \
+  --env WEBIDE_VM_OPTIONS="-Duser.home=${HOME}" \
+  --volume /tmp/.X11-unix:/tmp/.X11-unix \
+  --env DISPLAY="unix${DISPLAY}" \
+  --volume "$(pwd)":"$(pwd)" \
+  --workdir "$(pwd)" \
+  hugojosefson/webstorm webstorm-install-rust
+```
+
+Then next time you start webstorm, with the command above, using the
+same `WEBSTORM_HOME`, you can then install and use the Rust plugin from
+Jetbrains.
+
 ## License
 
 MIT
