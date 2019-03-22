@@ -39,6 +39,8 @@ useradd \
   --home-dir "${HOME}" \
   "${USER_NAME}"
 
+echo -e "\n${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 if [[ "${1}" == "webstorm-install-rust" ]]; then
   gosu "${USER_ID}:${GROUP_ID}" curl https://sh.rustup.rs -sSf \
   | exec gosu "${USER_ID}:${GROUP_ID}" sh -s -- -y

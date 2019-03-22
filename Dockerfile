@@ -24,6 +24,7 @@ RUN apt-get update \
     git                 $(: '~required by webstorm' ) \
     libnss3             $(: 'required by jetbrains-toolkit, for logging in' ) \
     gcc                 $(: 'required for rust' ) \
+    sudo                $(: 'useful') \
     vim                 $(: 'useful') \
   && apt-get clean
 
