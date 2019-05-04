@@ -2,6 +2,6 @@
 
 set -e
 
-curl --silent "https://api.github.com/repos/creationix/nvm/releases/latest" \
+curl --silent "https://api.github.com/repos/nvm-sh/nvm/releases/latest" \
   | jq -r .tag_name
 
