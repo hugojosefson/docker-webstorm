@@ -7,25 +7,26 @@ RUN apt-get update \
   && apt-get dist-upgrade --purge -y \
   && apt-get autoremove --purge -y \
   && apt-get install -y \
-    curl                $(: 'required by these setup scripts') \
-    wget                $(: 'required by these setup scripts') \
-    jq                  $(: 'required by these setup scripts') \
-    gosu                $(: 'for better process signalling in docker') \
-    x11-apps            $(: 'basic X11 support') \
-    libxtst6            $(: 'required by webstorm') \
-    libxi6              $(: 'required by webstorm') \
-    openjfx             $(: 'required by webstorm') \
-    libopenjfx-java     $(: 'required by webstorm') \
-    matchbox            $(: 'required by webstorm') \
-    libxslt1.1          $(: 'required by webstorm') \
-    libgl1-mesa-dri     $(: 'required by webstorm') \
-    libgl1-mesa-glx     $(: 'required by webstorm') \
-    firefox             $(: '~required by webstorm' ) \
-    git                 $(: '~required by webstorm' ) \
-    libnss3             $(: 'required by jetbrains-toolkit, for logging in' ) \
-    gcc                 $(: 'required for rust' ) \
-    sudo                $(: 'useful') \
-    vim                 $(: 'useful') \
+    curl                   $(: 'required by these setup scripts') \
+    wget                   $(: 'required by these setup scripts') \
+    jq                     $(: 'required by these setup scripts') \
+    gosu                   $(: 'for better process signalling in docker') \
+    x11-apps               $(: 'basic X11 support') \
+    libxtst6               $(: 'required by webstorm') \
+    libxi6                 $(: 'required by webstorm') \
+    openjfx                $(: 'required by webstorm') \
+    libopenjfx-java        $(: 'required by webstorm') \
+    matchbox               $(: 'required by webstorm') \
+    libxslt1.1             $(: 'required by webstorm') \
+    libgl1-mesa-dri        $(: 'required by webstorm') \
+    libgl1-mesa-glx        $(: 'required by webstorm') \
+    libcanberra-gtk-module $(: '~required by webstorm on manjaro') \
+    firefox                $(: '~required by webstorm' ) \
+    git                    $(: '~required by webstorm' ) \
+    libnss3                $(: 'required by jetbrains-toolkit, for logging in' ) \
+    gcc                    $(: 'required for rust' ) \
+    sudo                   $(: 'useful') \
+    vim                    $(: 'useful') \
   && apt-get clean
 
 ARG WEBSTORM_URL
