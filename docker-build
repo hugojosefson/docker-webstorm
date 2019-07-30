@@ -2,6 +2,8 @@
 
 set -e
 
+cd "$(dirname ${0})"
+
 NVM_VERSION="${NVM_VERSION:-$(./latest-nvm-version)}"
 
 LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
