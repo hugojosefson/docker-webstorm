@@ -12,14 +12,14 @@ RUN apt-get update \
     jq                     $(: 'required by these setup scripts') \
     gosu                   $(: 'for better process signalling in docker') \
     x11-apps               $(: 'basic X11 support') \
-    libxtst6               $(: 'required by webstorm') \
-    libxi6                 $(: 'required by webstorm') \
-    openjfx                $(: 'required by webstorm') \
-    libopenjfx-java        $(: 'required by webstorm') \
-    matchbox               $(: 'required by webstorm') \
-    libxslt1.1             $(: 'required by webstorm') \
-    libgl1-mesa-dri        $(: 'required by webstorm') \
-    libgl1-mesa-glx        $(: 'required by webstorm') \
+    libxtst6               $(: 'required for graphics') \
+    libxi6                 $(: 'required for graphics') \
+    openjfx                $(: 'required for graphics') \
+    libopenjfx-java        $(: 'required for graphics') \
+    matchbox               $(: 'required for graphics') \
+    libxslt1.1             $(: 'required for graphics') \
+    libgl1-mesa-dri        $(: 'required for graphics') \
+    libgl1-mesa-glx        $(: 'required for graphics') \
     libcanberra-gtk-module $(: '~required by webstorm on manjaro') \
     firefox                $(: '~required by webstorm' ) \
     git                    $(: '~required by webstorm' ) \
