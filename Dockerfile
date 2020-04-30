@@ -1,4 +1,4 @@
-FROM ubuntu:19.10
+FROM ubuntu:20.04
 MAINTAINER Hugo Josefson <hugo@josefson.org> (https://www.hugojosefson.com/)
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -44,7 +44,7 @@ COPY \
   install-toolbox \
   latest-toolbox-url \
   /tmp/install-jetbrains/
-RUN /tmp/install-jetbrains/install-toolbox "${TOOLBOX_URL}" 
+RUN /tmp/install-jetbrains/install-toolbox "${TOOLBOX_URL}"
 RUN rm -rf /tmp/install-webstorm
 
 ARG NVM_VERSION
