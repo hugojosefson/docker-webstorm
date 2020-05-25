@@ -23,14 +23,12 @@ RUN apt-get update \
     libcanberra-gtk-module $(: '~required by webstorm on manjaro') \
     firefox                $(: '~required by webstorm' ) \
     git                    $(: '~required by webstorm' ) \
-    libnss3                $(: 'required by jetbrains-toolkit, for logging in' ) \
     gcc                    $(: 'required for rust' ) \
     sudo                   $(: 'useful') \
     vim                    $(: 'useful') \
   && apt-get clean
 
 ARG WEBSTORM_URL
-ARG TOOLBOX_URL
 RUN mkdir /tmp/install-jetbrains
 COPY \
   jetbrains-url-to-version \
@@ -40,11 +38,6 @@ COPY \
   latest-webstorm-url \
   /tmp/install-jetbrains/
 RUN /tmp/install-jetbrains/install-webstorm "${WEBSTORM_URL}"
-COPY \
-  install-toolbox \
-  latest-toolbox-url \
-  /tmp/install-jetbrains/
-RUN /tmp/install-jetbrains/install-toolbox "${TOOLBOX_URL}"
 RUN rm -rf /tmp/install-webstorm
 
 ARG NVM_VERSION
