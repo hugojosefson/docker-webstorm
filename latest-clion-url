@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+curl --silent 'https://data.services.jetbrains.com/products/releases?code=CL&latest=true&type=release' \
+  | jq -r .CL[0].downloads.linux.link
+

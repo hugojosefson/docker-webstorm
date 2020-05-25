@@ -23,12 +23,14 @@ RUN apt-get update \
     libcanberra-gtk-module $(: '~required by webstorm on manjaro') \
     firefox                $(: '~required by webstorm' ) \
     git                    $(: '~required by webstorm' ) \
+    build-essential        $(: 'required by clion' ) \
     gcc                    $(: 'required for rust' ) \
     sudo                   $(: 'useful') \
     vim                    $(: 'useful') \
   && apt-get clean
 
 ARG WEBSTORM_URL
+ARG CLION_URL
 RUN mkdir /tmp/install-jetbrains
 COPY \
   jetbrains-url-to-version \
@@ -38,7 +40,12 @@ COPY \
   latest-webstorm-url \
   /tmp/install-jetbrains/
 RUN /tmp/install-jetbrains/install-webstorm "${WEBSTORM_URL}"
-RUN rm -rf /tmp/install-webstorm
+COPY \
+  install-clion \
+  latest-clion-url \
+  /tmp/install-jetbrains/
+RUN /tmp/install-jetbrains/install-clion "${CLION_URL}"
+RUN rm -rf /tmp/install-jetbrains
 
 ARG NVM_VERSION
 RUN (test ! -z "${NVM_VERSION}" && exit 0 || echo "--build-arg NVM_VERSION must be supplied to docker build." >&2 && exit 1)
