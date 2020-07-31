@@ -5,6 +5,7 @@ set -e
 cd "$(dirname ${0})"
 
 NVM_VERSION="${NVM_VERSION:-$(./latest-nvm-version)}"
+NODE_VERSION="${NODE_VERSION:-$(./latest-nvm-node-version)}"
 
 LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
 LATEST_WEBSTORM_VERSION=$(./jetbrains-url-to-version "${LATEST_WEBSTORM_URL}")
@@ -23,6 +24,7 @@ fi
 
 docker build \
   --build-arg NVM_VERSION="${NVM_VERSION}" \
+  --build-arg NODE_VERSION="${NODE_VERSION}" \
   --build-arg WEBSTORM_URL="${WEBSTORM_URL}" \
   --tag hugojosefson/webstorm:${WEBSTORM_VERSION} \
   ${POSSIBLY_LATEST_TAG} \

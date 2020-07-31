@@ -49,6 +49,8 @@ RUN rm -rf /tmp/install-jetbrains
 
 ARG NVM_VERSION
 RUN (test ! -z "${NVM_VERSION}" && exit 0 || echo "--build-arg NVM_VERSION must be supplied to docker build." >&2 && exit 1)
+ARG NODE_VERSION
+RUN (test ! -z "${NODE_VERSION}" && exit 0 || echo "--build-arg NODE_VERSION must be supplied to docker build." >&2 && exit 1)
 ENV NVM_DIR="/opt/nvm"
 COPY etc-profile.d-nvm /etc/profile.d/nvm
 RUN groupadd --system nvm \
@@ -61,10 +63,10 @@ RUN . "${NVM_DIR}/nvm.sh" \
   && nvm install --lts \
   && nvm exec --lts npm install -g npm@latest \
   && nvm exec --lts npm install -g yarn@latest \
-  && nvm install stable \
-  && nvm exec stable npm install -g npm@latest \
-  && nvm exec stable npm install -g yarn@latest \
-  && nvm alias default stable \
+  && nvm install ${NODE_VERSION} \
+  && nvm exec ${NODE_VERSION} npm install -g npm@latest \
+  && nvm exec ${NODE_VERSION} npm install -g yarn@latest \
+  && nvm alias default ${NODE_VERSION} \
   && nvm use default
 
 WORKDIR /
