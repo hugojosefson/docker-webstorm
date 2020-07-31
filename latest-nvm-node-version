@@ -3,5 +3,6 @@
 set -e
 
 curl -s https://nodejs.org/dist/index.json \
-  | jq -r .[0].version
+  | jq -r .[0].version \
+  | sed -E 's/^v//'
 
