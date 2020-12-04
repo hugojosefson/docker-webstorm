@@ -61,10 +61,8 @@ RUN mkdir -p "${NVM_DIR}/{.cache,versions,alias}" \
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | PROFILE=/etc/bash.bashrc bash
 RUN . "${NVM_DIR}/nvm.sh" \
   && nvm install --lts \
-  && nvm exec --lts npm install -g npm@latest \
-  && nvm exec --lts npm install -g yarn@latest \
   && nvm install ${NODE_VERSION} \
-  && nvm exec ${NODE_VERSION} npm install -g npm@latest \
+  && nvm exec --lts npm install -g yarn@latest \
   && nvm exec ${NODE_VERSION} npm install -g yarn@latest \
   && nvm alias default ${NODE_VERSION} \
   && nvm use default
