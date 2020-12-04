@@ -52,7 +52,7 @@ RUN (test ! -z "${NVM_VERSION}" && exit 0 || echo "--build-arg NVM_VERSION must 
 ARG NODE_VERSION
 RUN (test ! -z "${NODE_VERSION}" && exit 0 || echo "--build-arg NODE_VERSION must be supplied to docker build." >&2 && exit 1)
 ENV NVM_DIR="/opt/nvm"
-COPY etc-profile.d-nvm /etc/profile.d/nvm
+COPY etc-profile.d-nvm /etc/profile.d/nvm.sh
 RUN groupadd --system nvm \
   && usermod --append --groups nvm root
 RUN mkdir -p "${NVM_DIR}/{.cache,versions,alias}" \
