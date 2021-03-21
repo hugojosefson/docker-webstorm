@@ -27,6 +27,8 @@ RUN apt-get update \
     gcc                    $(: 'required for rust' ) \
     sudo                   $(: 'useful') \
     vim                    $(: 'useful') \
+    libnss3 libnss3-tools libnspr4 libgbm1 libxss1 \
+    unzip                  $(: 'required by deno install.sh') \
   && apt-get clean
 
 ARG WEBSTORM_URL
@@ -66,6 +68,12 @@ RUN . "${NVM_DIR}/nvm.sh" \
   && nvm exec ${NODE_VERSION} npm install -g yarn@latest \
   && nvm alias default ${NODE_VERSION} \
   && nvm use default
+
+ARG DENO_VERSION
+RUN (test ! -z "${DENO_VERSION}" && exit 0 || echo "--build-arg DENO_VERSION must be supplied to docker build." >&2 && exit 1)
+ENV DENO_INSTALL="/usr/local"
+RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s "${DENO_VERSION}"
+RUN deno --version
 
 WORKDIR /
 COPY entrypoint /
