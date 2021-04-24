@@ -6,7 +6,12 @@ cd "$(dirname ${0})"
 
 NVM_VERSION="${NVM_VERSION:-$(./latest-nvm-version)}"
 NODE_VERSION="${NODE_VERSION:-$(./latest-nvm-node-version)}"
+NPM_VERSION="${NPM_VERSION:-$(./latest-npm-version)}"
+YARN_VERSION="${YARN_VERSION:-$(./latest-yarn-version)}"
 DENO_VERSION="${DENO_VERSION:-$(./latest-deno-version)}"
+
+NPM_VERSION=${NPM_VERSION//$'\015'}
+YARN_VERSION=${YARN_VERSION//$'\015'}
 
 LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
 LATEST_WEBSTORM_VERSION=$(./jetbrains-url-to-version "${LATEST_WEBSTORM_URL}")
@@ -26,13 +31,15 @@ fi
 docker build \
   --build-arg NVM_VERSION="${NVM_VERSION}" \
   --build-arg NODE_VERSION="${NODE_VERSION}" \
+  --build-arg NPM_VERSION="${NPM_VERSION}" \
+  --build-arg YARN_VERSION="${YARN_VERSION}" \
   --build-arg DENO_VERSION="${DENO_VERSION}" \
   --build-arg WEBSTORM_URL="${WEBSTORM_URL}" \
-  --tag hugojosefson/webstorm:${WEBSTORM_VERSION} \
+  --tag "hugojosefson/webstorm:${WEBSTORM_VERSION}" \
   ${POSSIBLY_LATEST_TAG} \
   .
 
 if [[ "${1}" == "--push" ]]; then
-  docker push hugojosefson/webstorm:${WEBSTORM_VERSION}
+  docker push "hugojosefson/webstorm:${WEBSTORM_VERSION}"
   isLatestWebStormVersion && docker push hugojosefson/webstorm:latest
 fi
