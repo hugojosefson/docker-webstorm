@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail;IFS=$'\t\n'
 
 cd "$(dirname ${0})"
 
@@ -28,6 +28,7 @@ else
   POSSIBLY_LATEST_TAG=""
 fi
 
+IFS=$' \t\n'
 docker build \
   --build-arg NVM_VERSION="${NVM_VERSION}" \
   --build-arg NODE_VERSION="${NODE_VERSION}" \
@@ -38,8 +39,9 @@ docker build \
   --tag "hugojosefson/webstorm:${WEBSTORM_VERSION}" \
   ${POSSIBLY_LATEST_TAG} \
   .
+IFS=$'\t\n'
 
-if [[ "${1}" == "--push" ]]; then
+if [[ "${1:-""}" == "--push" ]]; then
   docker push "hugojosefson/webstorm:${WEBSTORM_VERSION}"
   isLatestWebStormVersion && docker push hugojosefson/webstorm:latest
 fi
