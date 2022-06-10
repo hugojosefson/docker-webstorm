@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:22.04
 MAINTAINER Hugo Josefson <hugo@josefson.org> (https://www.hugojosefson.com/)
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -74,10 +74,10 @@ RUN mkdir -p "${NVM_DIR}/{.cache,versions,alias}" \
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | PROFILE=/etc/bash.bashrc bash
 RUN . "${NVM_DIR}/nvm.sh" && nvm install --lts
 RUN . "${NVM_DIR}/nvm.sh" && nvm install ${NODE_VERSION}
-RUN . "${NVM_DIR}/nvm.sh" && nvm exec --lts -- npm install -g npm@${NPM_VERSION}
-RUN . "${NVM_DIR}/nvm.sh" && nvm exec ${NODE_VERSION} -- npm install -g npm@${NPM_VERSION}
-RUN . "${NVM_DIR}/nvm.sh" && nvm exec --lts -- npm install -g yarn@${YARN_VERSION}
-RUN . "${NVM_DIR}/nvm.sh" && nvm exec ${NODE_VERSION} -- npm install -g yarn@${YARN_VERSION}
+RUN . "${NVM_DIR}/nvm.sh" && nvm exec --lts -- npm install --location=global npm@${NPM_VERSION}
+RUN . "${NVM_DIR}/nvm.sh" && nvm exec ${NODE_VERSION} -- npm install --location=global npm@${NPM_VERSION}
+RUN . "${NVM_DIR}/nvm.sh" && nvm exec --lts -- npm install --location=global yarn@${YARN_VERSION}
+RUN . "${NVM_DIR}/nvm.sh" && nvm exec ${NODE_VERSION} -- npm install --location=global yarn@${YARN_VERSION}
 RUN . "${NVM_DIR}/nvm.sh" && nvm alias default ${NODE_VERSION}
 RUN . "${NVM_DIR}/nvm.sh" && nvm use default
 
@@ -86,6 +86,8 @@ RUN (test ! -z "${DENO_VERSION}" && exit 0 || echo "--build-arg DENO_VERSION mus
 ENV DENO_INSTALL="/usr/local"
 RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s "${DENO_VERSION}"
 RUN deno --version
+
+RUN apt-get install -y graphviz
 
 WORKDIR /
 COPY entrypoint /

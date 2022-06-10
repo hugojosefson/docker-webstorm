@@ -45,3 +45,5 @@ if [[ "${1:-""}" == "--push" ]]; then
   docker push "hugojosefson/webstorm:${WEBSTORM_VERSION}"
   isLatestWebStormVersion && docker push hugojosefson/webstorm:latest
 fi
+
+curl -fsS -m 10 --retry 5 -o /dev/null https://cron.roflcopter.fr/ping/5ac151bf-4fff-4ab0-9855-42de153d2345
