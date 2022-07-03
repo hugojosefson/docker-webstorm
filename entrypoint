@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+IFS=$'\t\n'
 
-if [[ "$(basename ${1} .sh) ${2}" == "webstorm --version" ]]; then
+if [[ "$(basename "${1:-""}" .sh) ${2:-""}" == "webstorm --version" ]]; then
   cat /opt/webstorm/product-info.json | jq -r .version
   exit 0
 fi
@@ -12,25 +13,25 @@ if [[ "$(basename ${1} .sh) ${2}" == "clion --version" ]]; then
   exit 0
 fi
 
-if ! [[ $EUID == 0 ]]; then
-  echo "This docker image must be started as root, so don't use 'docker run --user=...'." >&2
-  echo "Instead, pass environment variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID (and optionally HOME) for the user you want to become." >&2
+if ! [[ "${EUID}" == "0" ]]; then
+  echo "This docker image must be started as root, so don't use 'docker run --user=...'.
+Instead, pass environment variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID (and optionally HOME) for the user you want to become." >&2
   exit 1
 fi
 
-if [[ "|${USER_NAME}|${USER_ID}|${GROUP_NAME}|${GROUP_ID}" == *"||"* ]]; then
-  echo "You must pass env variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID to the Docker container." >&2
-  echo "Passing env variable HOME is optional." >&2
+if [[ "|${USER_NAME:-""}|${USER_ID:-""}|${GROUP_NAME:-""}|${GROUP_ID:-""}" == *"||"* ]]; then
+  echo "You must pass env variables USER_NAME, USER_ID, GROUP_NAME, GROUP_ID to the Docker container.
+Passing env variable HOME is optional." >&2
   exit 1
 fi
-export HOME=${HOME:-"/home/${USER_NAME}"}
+export HOME="${HOME:-"/home/${USER_NAME}"}"
 export WEBIDE_VM_OPTIONS="-Duser.home=${HOME} -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 
 groupadd \
   --gid "${GROUP_ID}" \
   "${GROUP_NAME}"
 
-if [[ -d "$HOME" ]]; then
+if [[ -d "${HOME}" ]]; then
   CREATE_HOME=""
 else
   CREATE_HOME="--create-home"
@@ -46,7 +47,7 @@ useradd \
 
 echo -e "\n${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-if [[ "${1}" == "webstorm-install-rust" ]]; then
+if [[ "${1:-""}" == "webstorm-install-rust" ]]; then
   gosu "${USER_ID}:${GROUP_ID}" curl https://sh.rustup.rs -sSf \
   | exec gosu "${USER_ID}:${GROUP_ID}" sh -s -- -y
   exit 0

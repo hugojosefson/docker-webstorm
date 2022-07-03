@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+IFS=$'\t\n'
 
-curl --silent 'https://data.services.jetbrains.com/products/releases?code=WS&latest=true&type=release' \
+curl --fail --silent 'https://data.services.jetbrains.com/products/releases?code=WS&latest=true&type=release' \
   | jq -r .WS[0].downloads.linux.link
 

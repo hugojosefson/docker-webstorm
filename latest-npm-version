@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+IFS=$'\t\n'
 
-npm show npm@latest version
+exec npm show npm@latest version

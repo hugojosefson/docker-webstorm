@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+IFS=$'\t\n'
 
-curl --silent "https://api.github.com/repos/denoland/deno/releases/latest" \
+curl --fail --silent "https://api.github.com/repos/denoland/deno/releases/latest" \
   | jq -r .tag_name
 

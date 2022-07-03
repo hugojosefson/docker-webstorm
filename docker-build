@@ -2,7 +2,7 @@
 
 set -euo pipefail;IFS=$'\t\n'
 
-cd "$(dirname ${0})"
+cd "$(dirname "${0}")"
 
 NVM_VERSION="${NVM_VERSION:-$(./latest-nvm-version)}"
 NODE_VERSION="${NODE_VERSION:-$(./latest-nvm-node-version)}"
@@ -10,8 +10,8 @@ NPM_VERSION="${NPM_VERSION:-$(./latest-npm-version)}"
 YARN_VERSION="${YARN_VERSION:-$(./latest-yarn-version)}"
 DENO_VERSION="${DENO_VERSION:-$(./latest-deno-version)}"
 
-NPM_VERSION=${NPM_VERSION//$'\015'}
-YARN_VERSION=${YARN_VERSION//$'\015'}
+NPM_VERSION="${NPM_VERSION//$'\015'}"
+YARN_VERSION="${YARN_VERSION//$'\015'}"
 
 LATEST_WEBSTORM_URL="$(./latest-webstorm-url)"
 LATEST_WEBSTORM_VERSION=$(./jetbrains-url-to-version "${LATEST_WEBSTORM_URL}")

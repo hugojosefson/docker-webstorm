@@ -1,17 +1,16 @@
 # Docker image hugojosefson/webstorm
 
-Runs Jetbrains WebStorm, in as much isolation, or as little, as you
-wish.
+Runs Jetbrains WebStorm, in as much isolation, or as little, as you wish.
 
 ## Usage
 
-This docker image must be started as `root`, so don't use `docker
-run --user=...`. Instead,  pass environment variables `USER_NAME`,
-`USER_ID`, `GROUP_NAME`, `GROUP_ID` (and optionally `HOME`) for the
-user you want to become.
+This docker image must be started as `root`, so don't use
+`docker run --user=...`. Instead, pass environment variables `USER_NAME`,
+`USER_ID`, `GROUP_NAME`, `GROUP_ID` (and optionally `HOME`) for the user you
+want to become.
 
-Example which runs gives WebStorm access to the current directory, but
-not your actual `HOME` on your host.
+Example which runs gives WebStorm access to the current directory, but not your
+actual `HOME` on your host.
 
 ```bash
 # Create a new temp directory to hold the user HOME inside the container
@@ -31,7 +30,7 @@ docker run --rm -it \
   --env DISPLAY="unix${DISPLAY}" \
   --volume "$(pwd)":"$(pwd)" \
   --workdir "$(pwd)" \
-  hugojosefson/webstorm webstorm $(pwd)
+  hugojosefson/webstorm webstorm "$(pwd)"
 ```
 
 ### Install Rust
@@ -54,9 +53,8 @@ docker run --rm -it \
   hugojosefson/webstorm webstorm-install-rust
 ```
 
-Then next time you start webstorm, with the command above, using the
-same `WEBSTORM_HOME`, you can then install and use the Rust plugin from
-Jetbrains.
+Then next time you start webstorm, with the command above, using the same
+`WEBSTORM_HOME`, you can then install and use the Rust plugin from Jetbrains.
 
 ## License
 

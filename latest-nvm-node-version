@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+IFS=$'\t\n'
 
-curl -s https://nodejs.org/dist/index.json \
+curl --fail --silent https://nodejs.org/dist/index.json \
   | jq -r .[0].version \
   | sed -E 's/^v//'
 
