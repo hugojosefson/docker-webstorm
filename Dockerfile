@@ -84,7 +84,7 @@ RUN . "${NVM_DIR}/nvm.sh" && nvm use default
 ARG DENO_VERSION
 RUN (test ! -z "${DENO_VERSION}" && exit 0 || echo "--build-arg DENO_VERSION must be supplied to docker build." >&2 && exit 1)
 ENV DENO_INSTALL="/usr/local"
-RUN curl -fsSL https://deno.land/x/install/install.sh | sh -s "${DENO_VERSION}"
+RUN curl -fsSL https://deno.land/install.sh | sh -s "${DENO_VERSION}"
 RUN deno --version
 
 WORKDIR /
