@@ -23,7 +23,7 @@ function isLatestWebStormVersion() {
 }
 
 if isLatestWebStormVersion; then
-  POSSIBLY_LATEST_TAG="--tag hugojosefson/webstorm:latest"
+  POSSIBLY_LATEST_TAG="--tag docker.io/hugojosefson/webstorm:latest"
 else
   POSSIBLY_LATEST_TAG=""
 fi
@@ -36,14 +36,14 @@ docker build \
   --build-arg YARN_VERSION="${YARN_VERSION}" \
   --build-arg DENO_VERSION="${DENO_VERSION}" \
   --build-arg WEBSTORM_URL="${WEBSTORM_URL}" \
-  --tag "hugojosefson/webstorm:${WEBSTORM_VERSION}" \
+  --tag "docker.io/hugojosefson/webstorm:${WEBSTORM_VERSION}" \
   ${POSSIBLY_LATEST_TAG} \
   .
 IFS=$'\t\n'
 
 if [[ "${1:-""}" == "--push" ]]; then
-  docker push "hugojosefson/webstorm:${WEBSTORM_VERSION}"
-  isLatestWebStormVersion && docker push hugojosefson/webstorm:latest
+  docker push "docker.io/hugojosefson/webstorm:${WEBSTORM_VERSION}"
+  isLatestWebStormVersion && docker push docker.io/hugojosefson/webstorm:latest
 fi
 
 curl -fsS -m 10 --retry 5 -o /dev/null https://cron.roflcopter.fr/ping/5ac151bf-4fff-4ab0-9855-42de153d2345
